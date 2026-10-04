@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canvas Studio</title>
+  <link rel="stylesheet" href="src/style.css">
+  <script src="vendor/d3.min.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <h1>Canvas<span>Studio</span></h1>
+    <select id="newType" aria-label="New canvas"></select>
+    <button id="btnExamples">Examples</button>
+    <button id="btnLearn" class="primary">Learn</button>
+    <span class="spacer"></span>
+    <select id="themeSelect" aria-label="Canvas theme"></select>
+    <details class="menu">
+      <summary>Export ▾</summary>
+      <div class="menu-items">
+        <button data-action="svg">SVG image</button>
+        <button data-action="png">PNG image</button>
+        <button data-action="md">Markdown outline</button>
+        <button data-action="txt">Canvas text file</button>
+        <button data-action="print">Print…</button>
+      </div>
+    </details>
+    <button data-action="share">Share link</button>
+    <button id="btnHelp">Syntax help</button>
+  </header>
+
+  <main id="main">
+    <section id="left">
+      <div id="palette"></div>
+      <div id="tutorial" hidden></div>
+      <div id="editor" class="editor"></div>
+      <div id="diag"></div>
+    </section>
+    <div id="splitter" role="separator" aria-orientation="vertical" title="Drag to resize"></div>
+    <section id="right">
+      <div class="canvas-wrap"><svg id="canvas" role="img" aria-label="Canvas preview"></svg></div>
+      <div id="status"></div>
+    </section>
+  </main>
+
+  <div id="toast" role="status"></div>
+
+  <dialog id="examplesDialog">
+    <header><h2>Examples</h2><button class="close" aria-label="Close">✕</button></header>
+    <p class="muted">Click an example to load it into the editor. All businesses are fictional.</p>
+    <div id="exampleGrid" class="grid"></div>
+  </dialog>
+
+  <dialog id="learnDialog">
+    <header><h2>Learn by building</h2><button class="close" aria-label="Close">✕</button></header>
+    <p class="muted">Pick a canvas. You'll build it one section at a time, with live feedback and a "Show me" button if you get stuck.</p>
+    <div id="learnGrid" class="grid"></div>
+  </dialog>
+
+  <dialog id="helpDialog">
+    <header><h2>Syntax reference</h2><button class="close" aria-label="Close">✕</button></header>
+    <div class="help">
+      <pre class="syntax">@startlean               ' pick a canvas: lean, bmc, vpc, swot, empathy, roam, lbc, ia
+title  My Startup        ' header lines: title, subtitle, author, date, version
+theme  blueprint         ' light, dark, blueprint or mono
+
+problem {                ' a block: section name { ... }
+  - First problem
+  - Second problem #red  ' end an item with a color tag
+}
+
+uvp: One clear sentence  ' or a one-line section
+' this is a comment
+@endlean</pre>
+      <ul>
+        <li>Items start with <code>-</code>, <code>*</code> or <code>+</code>. Plain lines inside a block also count as items.</li>
+        <li>Colors: <code>#yellow #green #blue #pink #orange #purple #gray #red</code> or hex like <code>#f80</code>.</li>
+        <li>A block opens with <code>problem {</code> and closes with <code>}</code>. The older <code>problem</code> ... <code>end</code> form still works.</li>
+        <li>Repeat a section to add more items; they are merged. Section names ignore case and spaces.</li>
+        <li>Comments start with <code>'</code> or <code>//</code>; <code>/'</code> ... <code>'/</code> spans lines.</li>
+      </ul>
+      <div id="helpSections"></div>
+    </div>
+  </dialog>
+
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>
