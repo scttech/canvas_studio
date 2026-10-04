@@ -6,7 +6,7 @@ export const EXAMPLES = [
     text: `@startlean
 title PetPal
 subtitle On-demand dog walking you can trust
-author Sam Rivera
+author Chris
 date 2026-01-15
 version 1.0
 
@@ -133,7 +133,7 @@ unfair {
     text: `@startbmc
 title Ember & Oak Coffee
 subtitle Small-batch roaster with a subscription box
-author Priya Nair
+author Chris
 date 2026-02-01
 
 partners {

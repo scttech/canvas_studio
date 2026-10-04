@@ -6,7 +6,7 @@ A canvas is described in plain text, in the spirit of PlantUML.
 @startlean
 title    PetPal
 subtitle On-demand dog walking
-author   Sam Rivera
+author   Chris
 date     2026-01-15
 version  1.0
 theme    blueprint
