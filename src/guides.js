@@ -302,6 +302,112 @@ export const GUIDES = {
       ['Stand up a shared test environment (Priya, Sprint 1)', 'Hold mid-PI dependency check-in (RTE)'],
     ),
   },
+
+  ddd: {
+    name: G(
+      'The name of the bounded context. It should come from the business language, not from technology or team names.',
+      ['Would domain experts recognize this name?', 'Does it describe the model, not the codebase?', 'Is it distinct from neighboring contexts?'],
+      ['Order Fulfillment', 'Customer Billing'],
+    ),
+    purpose: G(
+      'A short statement of why this context exists and what value it creates. If you cannot state it simply, the boundary may be wrong.',
+      ['What problem does it solve for the business?', 'Who benefits from it?', 'What would be lost if it did not exist?'],
+      ['Turns confirmed orders into shipped parcels as quickly and cheaply as possible'],
+    ),
+    classification: G(
+      'Where the context sits strategically. Core domains give competitive advantage and deserve your best people. Supporting and generic ones can be simpler or bought.',
+      ['Is it core, supporting or generic?', 'What business model role does it play (revenue, engagement, compliance, cost reduction)?', 'Is the model still being explored, or is it a commodity?'],
+      ['Core domain', 'Revenue generator', 'Evolution: custom-built'],
+    ),
+    roles: G(
+      'The part this context plays in the system. Naming the role clarifies what belongs here and what does not.',
+      ['Does it execute work, analyze data, specify rules, enforce, gate or draft?', 'Does it mainly transform, coordinate or hold reference data?'],
+      ['Execution context', 'Gateway to carriers', 'Specification context'],
+    ),
+    decisions: G(
+      'The business rules and policies this context owns. Capturing them shows what must live inside the boundary.',
+      ['What rules would change if the business changed its mind?', 'Which decisions must be consistent together?', 'Which are made by people versus automatically?'],
+      ['Orders over $500 need address verification', 'Backorders ship when stock is available'],
+    ),
+    inbound: G(
+      'Everything that arrives from outside: who sends it, what kind of message it is, and what the context does with it.',
+      ['Which contexts or users call this one?', 'Are the messages commands, queries or events?', 'What relationship do you have with each collaborator (customer-supplier, conformist, partnership)?'],
+      ['Checkout: PlaceOrder (command)', 'Warehouse: StockLevelChanged (event)'],
+    ),
+    language: G(
+      'The vocabulary that experts and developers share inside this context. The same word may mean different things in neighboring contexts, and that is fine.',
+      ['Which terms have a precise meaning here?', 'Which words mean something else in other contexts?', 'Do the code and the conversations use the same words?'],
+      ['Shipment: a set of items sent together', 'Backorder: an order line awaiting stock'],
+    ),
+    outbound: G(
+      'Everything this context sends out: which messages, to whom, and how tightly they depend on the answer.',
+      ['Which events does it publish?', 'Which contexts does it call, and what happens if they are down?', 'Does it conform to or protect itself from their model?'],
+      ['Carrier gateway: BookPickup (command)', 'Billing: OrderShipped (event)'],
+    ),
+    assumptions: G(
+      'Beliefs you are building on that have not been proven. Writing them down lets you test them early.',
+      ['What are we assuming about users, volume or other teams?', 'Which assumption would hurt most if wrong?'],
+      ['Carriers will keep supporting the current API', 'Most orders ship from a single warehouse'],
+    ),
+    metrics: G(
+      'Signals showing whether the boundary and model are working: coupling, change frequency, team autonomy, business outcomes.',
+      ['How often do changes require touching other contexts?', 'Can the team deploy independently?', 'Which business measure reflects its purpose?'],
+      ['Orders shipped within 24h', 'Cross-team changes per month'],
+    ),
+    questions: G(
+      'Unresolved topics to take to domain experts or neighboring teams. An honest list keeps the canvas useful as a conversation tool.',
+      ['What do we not understand yet?', 'Where do two teams use the same term differently?', 'Is a boundary still in doubt?'],
+      ['Who owns returns: Fulfillment or Customer Service?', 'Should address validation be its own context?'],
+    ),
+  },
+
+  story: {
+    scope: G(
+      'Names the story and sets its boundaries before you tell it. A clear scope keeps the session focused on one goal.',
+      ['Whose goal does the story serve?', 'Where does it start and where does it end?', 'Is it as-is (how things work today) or to-be (how they should)?', 'Is the level pure domain, or does it include software?'],
+      ['A customer orders a pizza and receives it', 'As-is, pure domain, from first call to delivery'],
+    ),
+    actors: G(
+      'Everyone and everything that does something in the story: people, roles, groups and systems. Use the role name, not a person\'s name.',
+      ['Who takes part in the story?', 'Is this a person, a group or a software system?', 'Would you use a more general or a more specific role?'],
+      ['Customer', 'Cashier', 'Pizza baker', 'Delivery driver'],
+    ),
+    objects: G(
+      'The things actors work with or hand to each other. Using the experts\' own words here surfaces the domain language.',
+      ['What do actors create, change, send or receive?', 'Is it a document, a physical item or data?', 'Does it have a different name for different people?'],
+      ['Order', 'Pizza', 'Menu', 'Receipt'],
+    ),
+    activities: G(
+      'The heart of the story: what each actor does, in order. Phrase each step as sentence: actor, verb, work object, and who it is for. Number the steps so the sequence is clear.',
+      ['What happens first, next and last?', 'Who does it, to what, and for whom?', 'Can you tell it at the right level of detail?', 'Is each step in the experts\' words?'],
+      ['1. Customer orders a pizza from the Menu', '2. Cashier writes down the Order', '3. Baker bakes the Pizza'],
+    ),
+    events: G(
+      'Meaningful things that happened as a result of the activities, phrased in the past tense. They are good candidates for domain events in the model.',
+      ['Which outcomes does the business care about?', 'What would another part of the business react to?', 'Can it be expressed as "something happened"?'],
+      ['Order placed', 'Pizza baked', 'Pizza delivered'],
+    ),
+    variations: G(
+      'Other paths through the story: exceptions, special cases and alternatives. Each one often becomes its own story.',
+      ['What happens when something goes wrong?', 'Which cases do different customers or regions have?', 'Which variation deserves its own story?'],
+      ['Customer cancels after baking has started', 'Delivery address is outside the zone'],
+    ),
+    language: G(
+      'Words the domain experts used, along with what they mean. Note when two people use one word differently, since this signals a boundary.',
+      ['Which terms did experts use that developers did not know?', 'Which words did different people use differently?', 'What synonyms did you hear?'],
+      ['Ticket vs. Order', 'Rush: an order jumped ahead in the queue'],
+    ),
+    hotspots: G(
+      'Pain points, disagreements and open questions that came up. Mark them while the story is told so they are not lost.',
+      ['Where did the experts disagree?', 'What is slow, error-prone or manual?', 'What did nobody in the room know?'],
+      ['Orders are written down twice', 'Who decides when a discount applies?'],
+    ),
+    contexts: G(
+      'What the story suggests about boundaries. Notice where the language changes, where responsibility passes to someone else, or where a different team takes over.',
+      ['Where do terms change meaning?', 'Where does ownership change hands?', 'What would you name each area?'],
+      ['Ordering (counter and phone)', 'Kitchen', 'Delivery'],
+    ),
+  },
 };
 
 // Canvas-level guides, shown when hovering the canvas type under the title.
@@ -334,6 +440,14 @@ export const CANVAS_GUIDES = {
   ia: {
     about: 'The SAFe event at the end of every Program Increment. The train reviews results, then runs a retrospective and problem-solving workshop to produce improvements.',
     use: ['Closing out a PI with a shared view of results', 'Choosing the biggest problems to solve', 'Feeding improvement items into the next PI Planning'],
+  },
+  ddd: {
+    about: 'A Domain-Driven Design canvas (from the DDD Crew) that documents one bounded context on a page: why it exists, its language and rules, and how it communicates with other contexts.',
+    use: ['Designing or reviewing service and team boundaries', 'Running a collaborative modeling session with domain experts', 'Documenting an existing context so teams can talk about it'],
+  },
+  story: {
+    about: 'Domain Storytelling (Hofer and Schwentner): experts tell a concrete business story step by step, and the group records it. The canvas holds the cast, objects, steps and what you learned.',
+    use: ['Learning a domain from the people who work in it', 'Finding shared language and boundaries before modeling', 'Aligning developers and domain experts on how work really happens'],
   },
   lbc: {
     about: 'A SAFe one-pager for an Epic. It states the hypothesis, expected outcomes and MVP so portfolio leaders can make a go/no-go funding decision.',

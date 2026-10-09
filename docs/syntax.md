@@ -26,7 +26,7 @@ problem: Hard to find a walker I can trust
 
 | Element | Meaning |
 | --- | --- |
-| `@startTYPE` / `@endTYPE` | Wraps the description. `TYPE` is one of `lean`, `bmc`, `vpc`, `swot`, `empathy`, `roam`, `lbc`, `ia`. |
+| `@startTYPE` / `@endTYPE` | Wraps the description. `TYPE` is one of `lean`, `bmc`, `vpc`, `swot`, `empathy`, `roam`, `lbc`, `ia`, `ddd`, `story`. |
 | `title`, `subtitle`, `author`, `date`, `version` | Header text. A colon after the name is optional. |
 | `theme NAME` | `light` (default), `dark`, `blueprint`, `mono`. |
 | `section {` ... `}` | A block of items for one section. The older form `section` ... `end` (or `end section-name`) still works. |
@@ -76,6 +76,14 @@ SAFe Epic one-pager: `epic`, `outcomes`, `indicators`, `mvp`, `nfr`, `outofscope
 ### Inspect & Adapt Retrospective (`@startia`)
 
 SAFe end-of-PI event: `wentwell`, `improve`, `metrics`, `problems`, `causes`, `actions`.
+
+### Bounded Context Canvas (`@startddd`)
+
+Domain-Driven Design: `name`, `purpose`, `classification`, `roles`, `decisions`, `inbound`, `language`, `outbound`, `assumptions`, `metrics`, `questions`.
+
+### Domain Story Canvas (`@startstory`)
+
+Domain Storytelling: `scope`, `actors`, `objects`, `activities`, `events`, `variations`, `language`, `hotspots`, `contexts`.
 
 The in-app **Syntax help** dialog lists every accepted alias for the canvas you are editing.
 

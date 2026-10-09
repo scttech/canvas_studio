@@ -475,6 +475,130 @@ actions {
 @endia
 `,
   },
+  {
+    id: 'ddd-fulfillment', type: 'ddd', name: 'Order Fulfillment Context', description: 'A bounded context canvas for the part of an online shop that ships orders.',
+    text: `@startddd
+title Order Fulfillment
+subtitle Bounded context, online shop
+
+name {
+  - Order Fulfillment #blue
+}
+
+purpose {
+  - Turn confirmed orders into shipped parcels quickly and cheaply #blue
+}
+
+classification {
+  - Core domain
+  - Revenue generator
+  - Custom-built
+}
+
+roles {
+  - Execution context
+  - Gateway to carriers
+}
+
+decisions {
+  - Orders over $500 need address verification #purple
+  - Backorders ship when stock arrives
+}
+
+inbound {
+  - Checkout: PlaceOrder (command) #green
+  - Warehouse: StockLevelChanged (event)
+}
+
+language {
+  - Shipment: items sent together #purple
+  - Backorder: order line awaiting stock
+}
+
+outbound {
+  - Carrier gateway: BookPickup (command) #orange
+  - Billing: OrderShipped (event)
+}
+
+assumptions {
+  - Most orders ship from one warehouse
+}
+
+metrics {
+  - Orders shipped within 24h
+  - Cross-team changes per month
+}
+
+questions {
+  - Who owns returns? #red
+  - Should address validation be separate?
+}
+@endddd
+`,
+  },
+  {
+    id: 'story-pizza', type: 'story', name: 'Pizza Delivery Story', description: 'A domain story session for taking a phone order through to delivery.',
+    text: `@startstory
+title Pizza Delivery
+subtitle Domain story, as-is, pure domain
+
+scope {
+  - Customer orders by phone and gets the pizza at home #blue
+  - Starts with the call, ends with payment
+}
+
+actors {
+  - Customer #green
+  - Cashier
+  - Baker
+  - Driver
+}
+
+objects {
+  - Menu #orange
+  - Order
+  - Pizza
+  - Receipt
+}
+
+activities {
+  - 1. Customer orders a Pizza from the Menu #blue
+  - 2. Cashier writes down the Order
+  - 3. Cashier hands the Order to the Baker
+  - 4. Baker bakes the Pizza
+  - 5. Driver delivers the Pizza to the Customer
+  - 6. Customer pays the Driver and gets a Receipt
+}
+
+events {
+  - Order placed #purple
+  - Pizza baked
+  - Pizza delivered
+}
+
+variations {
+  - Customer cancels after baking has started
+  - Delivery address is out of the zone
+}
+
+language {
+  - Ticket: the paper slip for the Baker
+  - Rush: order jumped the queue
+}
+
+hotspots {
+  - Order is written down twice #red
+  - Who decides about discounts?
+}
+
+contexts {
+  - Ordering (counter and phone) #purple
+  - Kitchen
+  - Delivery
+}
+@endstory
+`,
+  },
 ];
 
 export function examplesFor(type) {
